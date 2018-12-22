@@ -5,10 +5,11 @@
 
 enum ImageQuadrant
 {
-	first,
-	second,
-	third,
-	forth
+	First,
+	Second,
+	Third,
+	Forth,
+	None
 };
 
 class ImageProcessing
@@ -20,7 +21,7 @@ public:
 	cv::Mat &getComposedFrame() {
 		return composedFrame;
 	}
-	ImageQuadrant calculateQuadrant(int x, int y);
+	ImageQuadrant calculateQuadrant(unsigned int x, unsigned int y);
 private:
 	cv::Mat composedFrame;
 	cv::Mat originalFrame;

@@ -25,6 +25,27 @@ void ImageProcessing::setImage(const cv::Mat & originalFrame)
 	cv::waitKey(10000);
 }
 
+ImageQuadrant ImageProcessing::calculateQuadrant(unsigned int x, unsigned int y)
+{
+	if (x < SEGMENTATIONWINDOWSIZE.width & x > SEGMENTATIONWINDOWSIZE.width / 2) {
+		if (y < SEGMENTATIONWINDOWSIZE.height & y > SEGMENTATIONWINDOWSIZE.height / 2) {
+			return ImageQuadrant::Forth;
+		}
+		else {
+			return ImageQuadrant::First;
+		}
+	}
+	else {
+		if (y < SEGMENTATIONWINDOWSIZE.height & y > SEGMENTATIONWINDOWSIZE.height / 2) {
+			return ImageQuadrant::Third;
+		}
+		else {
+			return ImageQuadrant::Second;
+		}
+	}
+	return ImageQuadrant::None;
+}
+
 void ImageProcessing::composeImage()
 {
 	segmentationMask.copyTo(composedFrame(cv::Rect(resizedFrame.cols, 0, resizedFrame.cols, resizedFrame.rows)));
