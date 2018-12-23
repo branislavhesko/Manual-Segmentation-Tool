@@ -21,13 +21,16 @@ public:
 	cv::Mat &getComposedFrame() {
 		return composedFrame;
 	}
+	cv::Mat &getSegmentationMask() {
+		return segmentationMask;
+	}
 	ImageQuadrant calculateQuadrant(unsigned int x, unsigned int y);
 private:
 	cv::Mat composedFrame;
 	cv::Mat originalFrame;
 	cv::Mat segmentationMask;
 	cv::Mat resizedFrame;
-	const cv::Size SEGMENTATIONWINDOWSIZE = cv::Size(1200, 800);
+	const cv::Size SEGMENTATIONWINDOWSIZE = cv::Size(1600, 900);
 	void composeImage();
 	cv::Mat mergeImageAndMask();
 	cv::Mat maskImageByMask();

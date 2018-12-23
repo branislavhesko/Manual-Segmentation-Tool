@@ -1,2 +1,13 @@
 ﻿  ImageProcessing.cpp
+c:\users\brani\documents\phd\manualsegmentationtool\manualsegmentationtool\imageprocessing.cpp(30): warning C4018: '<': signed/unsigned mismatch
+c:\users\brani\documents\phd\manualsegmentationtool\manualsegmentationtool\imageprocessing.cpp(30): warning C4018: '>': signed/unsigned mismatch
+c:\users\brani\documents\phd\manualsegmentationtool\manualsegmentationtool\imageprocessing.cpp(30): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+c:\users\brani\documents\phd\manualsegmentationtool\manualsegmentationtool\imageprocessing.cpp(31): warning C4018: '<': signed/unsigned mismatch
+c:\users\brani\documents\phd\manualsegmentationtool\manualsegmentationtool\imageprocessing.cpp(31): warning C4018: '>': signed/unsigned mismatch
+c:\users\brani\documents\phd\manualsegmentationtool\manualsegmentationtool\imageprocessing.cpp(31): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+c:\users\brani\documents\phd\manualsegmentationtool\manualsegmentationtool\imageprocessing.cpp(39): warning C4018: '<': signed/unsigned mismatch
+c:\users\brani\documents\phd\manualsegmentationtool\manualsegmentationtool\imageprocessing.cpp(39): warning C4018: '>': signed/unsigned mismatch
+c:\users\brani\documents\phd\manualsegmentationtool\manualsegmentationtool\imageprocessing.cpp(39): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+  ManualSegmentationTool.cpp
+  Generating Code...
   ManualSegmentationTool.vcxproj -> C:\Users\brani\Documents\phd\ManualSegmentationTool\x64\Debug\ManualSegmentationTool.exe
