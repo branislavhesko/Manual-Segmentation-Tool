@@ -3,12 +3,15 @@
 
 #include "pch.h"
 #include "ImageProcessing.h"
+#include "SegmentByPolygonFit.h"
 #include <iostream>
 
 int main()
 {
 	ImageProcessing image;
 	image.setImage(cv::imread("./1.jpg"));
+	SegmentByPolygonFit s;
+	s.run(image);
     std::cout << "Hello World!\n"; 
 }
 

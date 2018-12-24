@@ -16,13 +16,10 @@ void ImageProcessing::setImage(const cv::Mat & originalFrame)
 	this->originalFrame = originalFrame;
 	cv::resize(originalFrame, this->resizedFrame, 
 		cv::Size(SEGMENTATIONWINDOWSIZE.width / 2, SEGMENTATIONWINDOWSIZE.height / 2));
-	//this->segmentationMask = cv::Mat(resizedFrame.size(), CV_8UC3);
 	cv::threshold(resizedFrame, segmentationMask, 100, 255, CV_THRESH_BINARY);
 	composedFrame = cv::Mat(SEGMENTATIONWINDOWSIZE, CV_8UC3);
-	resizedFrame.copyTo(composedFrame(cv::Rect(0, 0, resizedFrame.cols, resizedFrame.rows)));
 	composeImage();
-	cv::imshow("SKUSKA", composedFrame);
-	cv::waitKey(10000);
+
 }
 
 ImageQuadrant ImageProcessing::calculateQuadrant(unsigned int x, unsigned int y)
@@ -48,6 +45,7 @@ ImageQuadrant ImageProcessing::calculateQuadrant(unsigned int x, unsigned int y)
 
 void ImageProcessing::composeImage()
 {
+	resizedFrame.copyTo(composedFrame(cv::Rect(0, 0, resizedFrame.cols, resizedFrame.rows)));
 	segmentationMask.copyTo(composedFrame(cv::Rect(resizedFrame.cols, 0, resizedFrame.cols, resizedFrame.rows)));
 	mergeImageAndMask().copyTo(composedFrame(cv::Rect(0, resizedFrame.rows, resizedFrame.cols, resizedFrame.rows)));
 	maskImageByMask().copyTo(composedFrame(cv::Rect(resizedFrame.cols, resizedFrame.rows, resizedFrame.cols, resizedFrame.rows)));

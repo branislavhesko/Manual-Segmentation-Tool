@@ -2,26 +2,19 @@
 
 #include <vector>
 #include "ImageProcessing.h"
-
-struct Point2D
-{
-	int x;
-	int y;
-	Point2D(int x, int y) {
-		this->x = x;
-		this->y = y;
-	}
-};
+#include "mouseControlFunctions.h"
 
 class SegmentByPolygonFit
 {
 public:
 	SegmentByPolygonFit();
 	~SegmentByPolygonFit();
-	void run(ImageProcessing &im);
+	void run(ImageProcessing & im);
 
 private:
-	std::vector<Point2D> segmentedPoints;
+	std::vector<cv::Point> segmentedPoints;
 	void deleteLastPoint();
+	ImageProcessing im;
+	void drawPolygon();
 };
 
