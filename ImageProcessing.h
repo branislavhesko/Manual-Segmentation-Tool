@@ -24,14 +24,16 @@ public:
 	cv::Mat &getSegmentationMask() {
 		return segmentationMask;
 	}
+	void composeImage();
 	ImageQuadrant calculateQuadrant(unsigned int x, unsigned int y);
+	void addPolygonToSegmentationMask(std::vector<cv::Point> &points);
+
 private:
 	cv::Mat composedFrame;
 	cv::Mat originalFrame;
 	cv::Mat segmentationMask;
 	cv::Mat resizedFrame;
 	cv::Size SEGMENTATIONWINDOWSIZE = cv::Size(1600, 900);
-	void composeImage();
 	cv::Mat mergeImageAndMask();
 	cv::Mat maskImageByMask();
 };

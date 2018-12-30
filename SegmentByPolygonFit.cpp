@@ -23,6 +23,10 @@ void SegmentByPolygonFit::run(ImageProcessing & im)
 		}
 		cv::setMouseCallback("SKUSKA", polygonSegmentationMouseControl, &segmentedPoints);
 	}
+	im.addPolygonToSegmentationMask(segmentedPoints);
+	im.composeImage();
+	cv::imshow("SKUSKA", im.getComposedFrame());
+	cv::waitKey(10000);
 }
 
 void SegmentByPolygonFit::deleteLastPoint()

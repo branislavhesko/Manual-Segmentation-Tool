@@ -43,6 +43,11 @@ ImageQuadrant ImageProcessing::calculateQuadrant(unsigned int x, unsigned int y)
 	return ImageQuadrant::None;
 }
 
+void ImageProcessing::addPolygonToSegmentationMask(std::vector<cv::Point>& points)
+{
+	cv::fillConvexPoly(segmentationMask, points, cv::Scalar(255, 255, 255));
+}
+
 void ImageProcessing::composeImage()
 {
 	resizedFrame.copyTo(composedFrame(cv::Rect(0, 0, resizedFrame.cols, resizedFrame.rows)));

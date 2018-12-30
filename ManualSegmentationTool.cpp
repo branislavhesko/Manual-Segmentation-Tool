@@ -4,10 +4,28 @@
 #include "pch.h"
 #include "ImageProcessing.h"
 #include "SegmentByPolygonFit.h"
+#include "Application.h"
+#include <vector>
+#include <string>
 #include <iostream>
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+
+
+std::vector<std::string> getImagesInFolder(std::string &path) {
+	std::vector<std::string> imageFiles;
+	for (auto &file : fs::directory_iterator(path))
+	{
+		imageFiles.push_back(file.path().string());
+	}
+	return imageFiles;
+}
 
 int main()
 {
+	Application app;
+	app.initialize();
+	app.run();
 	ImageProcessing image;
 	image.setImage(cv::imread("./1.jpg"));
 	SegmentByPolygonFit s;
