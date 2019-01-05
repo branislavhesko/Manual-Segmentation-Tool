@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "ImageProcessing.h"
+#include "image_processing.h"
 
 
 ImageProcessing::ImageProcessing()

@@ -1,4 +1,4 @@
-#include "mouseControlFunctions.h"
+#include "mouse_control_functions.h"
 #include "pch.h"
 #include <vector>
 #include "opencv2/opencv.hpp"

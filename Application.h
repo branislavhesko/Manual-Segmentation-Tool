@@ -8,7 +8,7 @@
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 #include <tchar.h>
-#include "ImageProcessing.h"
+#include "image_processing.h"
 
 static LPDIRECT3DDEVICE9        g_pd3dDevice = NULL;
 static D3DPRESENT_PARAMETERS    g_d3dpp;
@@ -23,6 +23,7 @@ public:
 	Application();
 	~Application();
 	cv::Mat run(const cv::Mat processedImage);
+	void pickMethodGui();
 	void initialize();
 	void run();
 
@@ -31,6 +32,6 @@ private:
 	HWND hwnd;
 	LPDIRECT3D9 pD3D;
 	WNDCLASSEX wc;
-
+	std::vector<bool> methodPicker;
 };
 

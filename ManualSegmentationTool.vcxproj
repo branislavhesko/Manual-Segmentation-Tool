@@ -153,7 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
-    <ClInclude Include="ImageProcessing.h" />
+    <ClInclude Include="image_processing.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
     <ClInclude Include="imgui_impl_dx9.h" />
@@ -162,28 +162,30 @@
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
-    <ClInclude Include="mouseControlFunctions.h" />
+    <ClInclude Include="mouse_control_functions.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="SegmentByPolygonFit.h" />
+    <ClInclude Include="segmentation_method.h" />
+    <ClInclude Include="segment_by_polygon_fit.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="ImageProcessing.cpp" />
+    <ClCompile Include="image_processing.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_impl_dx9.cpp" />
     <ClCompile Include="imgui_impl_win32.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
-    <ClCompile Include="ManualSegmentationTool.cpp" />
-    <ClCompile Include="mouseControlFunctions.cpp" />
+    <ClCompile Include="manual_segmentation_tool.cpp" />
+    <ClCompile Include="mouse_control_functions.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SegmentByPolygonFit.cpp" />
+    <ClCompile Include="segmentation_method.cpp" />
+    <ClCompile Include="segment_by_polygon_fit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ManualSegmentationTool.rc" />

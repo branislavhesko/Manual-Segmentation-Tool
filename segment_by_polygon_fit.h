@@ -1,10 +1,11 @@
 #pragma once
 
 #include <vector>
-#include "ImageProcessing.h"
-#include "mouseControlFunctions.h"
+#include "image_processing.h"
+#include "mouse_control_functions.h"
+#include "Segment.h"
 
-class SegmentByPolygonFit
+class SegmentByPolygonFit : public Segment
 {
 public:
 	SegmentByPolygonFit();
@@ -12,7 +13,7 @@ public:
 	void run(ImageProcessing & im);
 
 private:
-	std::vector<cv::Point> segmentedPoints;
+	std::vector<cv::Point> segmented_points;
 	void deleteLastPoint();
 	ImageProcessing im;
 	void drawPolygon();

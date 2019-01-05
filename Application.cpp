@@ -4,6 +4,7 @@
 
 Application::Application()
 {
+	methodPicker = std::vector<bool>(3, false);
 }
 
 Application::~Application()
@@ -14,6 +15,98 @@ cv::Mat Application::run(const cv::Mat processedImage)
 {
 	return cv::Mat();
 }
+
+void Application::pickMethodGui()
+{
+
+	bool show_picker_gui = true;
+	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+	// Main loop
+	MSG msg;
+	ZeroMemory(&msg, sizeof(msg));
+	ShowWindow(hwnd, SW_SHOWDEFAULT);
+	UpdateWindow(hwnd);
+
+	while (msg.message != WM_QUIT) {
+		if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+			continue;
+		}
+
+		ImGui_ImplDX9_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
+
+
+		{
+			static int counter = 0;
+
+			ImGui::Begin("Main window");                          // Create a window called "Hello, world!" and append into it.
+
+			ImGui::Text("Please pick your manual segmentation method");               // Display some text (you can use a format strings too)
+
+			//ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+			if (ImGui::Button("Method 1"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+				methodPicker[0] = true;
+			ImGui::SameLine();
+			ImGui::Text("This method depicts object by a polygon");
+
+			if (ImGui::Button("Method 2"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+				methodPicker[1] = true;
+			ImGui::SameLine();
+			ImGui::Text("This method depicts object by mouse movement");
+
+			if (ImGui::Button("Method 3"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+				methodPicker[2] = true;
+			ImGui::SameLine();
+			ImGui::Text("This method depicts object by painting pixels");
+
+			if (ImGui::Button("DONE")) {
+				break;
+			}
+
+			// ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			ImGui::End();
+		}
+
+		ImGui::EndFrame();
+		g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, false);
+		g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+		g_pd3dDevice->SetRenderState(D3DRS_SCISSORTESTENABLE, false);
+		D3DCOLOR clear_col_dx = D3DCOLOR_RGBA((int)(clear_color.x*255.0f), (int)(clear_color.y*255.0f), (int)(clear_color.z*255.0f), (int)(clear_color.w*255.0f));
+		g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, clear_col_dx, 1.0f, 0);
+		if (g_pd3dDevice->BeginScene() >= 0)
+		{
+			ImGui::Render();
+			ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
+			g_pd3dDevice->EndScene();
+		}
+		HRESULT result = g_pd3dDevice->Present(NULL, NULL, NULL, NULL);
+
+		// Handle loss of D3D9 device
+		if (result == D3DERR_DEVICELOST && g_pd3dDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
+		{
+			ImGui_ImplDX9_InvalidateDeviceObjects();
+			g_pd3dDevice->Reset(&g_d3dpp);
+			ImGui_ImplDX9_CreateDeviceObjects();
+		}
+	}
+
+	ImGui_ImplDX9_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
+
+	if (g_pd3dDevice) g_pd3dDevice->Release();
+	if (pD3D) pD3D->Release();
+	DestroyWindow(hwnd);
+	UnregisterClass(_T("ImGui Example"), wc.hInstance);
+
+}
+
 
 void Application::initialize()
 {
@@ -61,101 +154,8 @@ void Application::initialize()
 
 void Application::run()
 {
-	bool show_demo_window = true;
-	bool show_another_window = false;
-	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
-	// Main loop
-	MSG msg;
-	ZeroMemory(&msg, sizeof(msg));
-	ShowWindow(hwnd, SW_SHOWDEFAULT);
-	UpdateWindow(hwnd);
-	while (msg.message != WM_QUIT)
-	{
-		// Poll and handle messages (inputs, window resize, etc.)
-		// You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-		// - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
-		// - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application.
-		// Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-		if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-			continue;
-		}
-
-		// Start the Dear ImGui frame
-		ImGui_ImplDX9_NewFrame();
-		ImGui_ImplWin32_NewFrame();
-		ImGui::NewFrame();
-
-		// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-		{
-			static float f = 0.0f;
-			static int counter = 0;
-
-			ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-			ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-			ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-			ImGui::Checkbox("Another Window", &show_another_window);
-
-			ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f    
-			ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-			if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-				counter++;
-			ImGui::SameLine();
-			ImGui::Text("counter = %d", counter);
-
-			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-			ImGui::End();
-		}
-
-		// 3. Show another simple window.
-		if (show_another_window)
-		{
-			ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-			ImGui::Text("Hello from another window!");
-			if (ImGui::Button("Close Me"))
-				show_another_window = false;
-			ImGui::End();
-		}
-
-		// Rendering
-		ImGui::EndFrame();
-		g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, false);
-		g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
-		g_pd3dDevice->SetRenderState(D3DRS_SCISSORTESTENABLE, false);
-		D3DCOLOR clear_col_dx = D3DCOLOR_RGBA((int)(clear_color.x*255.0f), (int)(clear_color.y*255.0f), (int)(clear_color.z*255.0f), (int)(clear_color.w*255.0f));
-		g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, clear_col_dx, 1.0f, 0);
-		if (g_pd3dDevice->BeginScene() >= 0)
-		{
-			ImGui::Render();
-			ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
-			g_pd3dDevice->EndScene();
-		}
-		HRESULT result = g_pd3dDevice->Present(NULL, NULL, NULL, NULL);
-
-		// Handle loss of D3D9 device
-		if (result == D3DERR_DEVICELOST && g_pd3dDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
-		{
-			ImGui_ImplDX9_InvalidateDeviceObjects();
-			g_pd3dDevice->Reset(&g_d3dpp);
-			ImGui_ImplDX9_CreateDeviceObjects();
-		}
-	}
-
-	ImGui_ImplDX9_Shutdown();
-	ImGui_ImplWin32_Shutdown();
-	ImGui::DestroyContext();
-
-	if (g_pd3dDevice) g_pd3dDevice->Release();
-	if (pD3D) pD3D->Release();
-	DestroyWindow(hwnd);
-	UnregisterClass(_T("ImGui Example"), wc.hInstance);
-
-	return;
+	initialize();
+	pickMethodGui();
 }
 
 

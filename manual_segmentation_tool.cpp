@@ -2,8 +2,8 @@
 //
 
 #include "pch.h"
-#include "ImageProcessing.h"
-#include "SegmentByPolygonFit.h"
+#include "image_processing.h"
+#include "segment_by_polygon_fit.h"
 #include "Application.h"
 #include <vector>
 #include <string>
