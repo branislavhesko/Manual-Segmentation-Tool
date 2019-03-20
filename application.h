@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <vector>
 
+#include "opencv2/opencv.hpp"
 #include "imgui/imgui.h"
 
 class Application {
@@ -22,6 +23,7 @@ private:
     };
 
 protected:
+    const cv::Size WINDOWSIZE = cv::Size(200, 800);
     std::vector<bool> methodPicker;
     virtual void pickMethodGui(){};
     bool createWindow();

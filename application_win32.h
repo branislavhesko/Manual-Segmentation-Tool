@@ -32,7 +32,6 @@ public:
 	void initialize() override;
 
 private:
-	const cv::Size WINDOWSIZE = cv::Size(200, 800);
 	HWND hwnd;
 	LPDIRECT3D9 pD3D;
 	WNDCLASSEX wc;
