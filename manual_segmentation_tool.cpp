@@ -1,7 +1,5 @@
 // ManualSegmentationTool.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
-#include "pch.h"
 #include "image_processing.h"
 #include "segment_by_polygon_fit.h"
 #include "application_glfw_opengl3.h"
@@ -27,7 +25,7 @@ int main()
     ApplicationGlfwOpengl3 app;
     app.run();
 	ImageProcessing image;
-	image.setImage(cv::imread("./1.jpg"));
+	image.setImage(cv::imread("./1."));
 	SegmentByPolygonFit s;
 	s.run(image);
     std::cout << "Hello World!\n"; 

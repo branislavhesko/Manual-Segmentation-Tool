@@ -23,7 +23,8 @@ private:
 
 protected:
     std::vector<bool> methodPicker;
-
+    virtual void pickMethodGui(){};
+    bool createWindow();
 };
 
 

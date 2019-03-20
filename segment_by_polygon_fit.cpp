@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "segment_by_polygon_fit.h"
 
 
