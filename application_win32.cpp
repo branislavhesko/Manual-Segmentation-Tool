@@ -1,22 +1,60 @@
+#ifdef _MSC_VER
 #include "pch.h"
-#include "Application.h"
+#include "application_win32.h"
 
 
-Application::Application()
-{
-	methodPicker = std::vector<bool>(3, false);
-}
-
-Application::~Application()
+ApplicationWin32::ApplicationWin32() : Application()
 {
 }
 
-cv::Mat Application::run(const cv::Mat processedImage)
+ApplicationWin32::~ApplicationWin32() = default;
+
+
+void ApplicationWin32::initialize()
 {
-	return cv::Mat();
+	// Create application window
+	wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("ImGui Example"), NULL };
+	RegisterClassEx(&wc);
+	hwnd = CreateWindow(_T("ImGui Example"), _T("Dear ImGui DirectX9 Example"), WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
+
+	// Initialize Direct3D
+	if ((pD3D = Direct3DCreate9(D3D_SDK_VERSION)) == NULL)
+	{
+		UnregisterClass(_T("ImGui Example"), wc.hInstance);
+		return;
+	}
+	ZeroMemory(&g_d3dpp, sizeof(g_d3dpp));
+	g_d3dpp.Windowed = TRUE;
+	g_d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	g_d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
+	g_d3dpp.EnableAutoDepthStencil = TRUE;
+	g_d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+	g_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_ONE; // Present with vsync
+	//g_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; // Present without vsync, maximum unthrottled framerate
+
+	// Create the D3DDevice
+	if (pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &g_d3dpp, &g_pd3dDevice) < 0)
+	{
+		pD3D->Release();
+		UnregisterClass(_T("ImGui Example"), wc.hInstance);
+		return;
+	}
+
+	// Setup Dear ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
+
+	// Setup Platform/Renderer bindings
+	ImGui_ImplWin32_Init(hwnd);
+	ImGui_ImplDX9_Init(g_pd3dDevice);
+
+	// Setup Style
+	ImGui::StyleColorsDark();
 }
 
-void Application::pickMethodGui()
+void ApplicationWin32::pickMethodGui()
 {
 
 	bool show_picker_gui = true;
@@ -69,7 +107,7 @@ void Application::pickMethodGui()
 				break;
 			}
 
-			// ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			// ImGui::Text("application_win32 average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			ImGui::End();
 		}
 
@@ -107,58 +145,6 @@ void Application::pickMethodGui()
 
 }
 
-
-void Application::initialize()
-{
-	// Create application window
-	wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("ImGui Example"), NULL };
-	RegisterClassEx(&wc);
-	hwnd = CreateWindow(_T("ImGui Example"), _T("Dear ImGui DirectX9 Example"), WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
-
-	// Initialize Direct3D
-	if ((pD3D = Direct3DCreate9(D3D_SDK_VERSION)) == NULL)
-	{
-		UnregisterClass(_T("ImGui Example"), wc.hInstance);
-		return;
-	}
-	ZeroMemory(&g_d3dpp, sizeof(g_d3dpp));
-	g_d3dpp.Windowed = TRUE;
-	g_d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	g_d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
-	g_d3dpp.EnableAutoDepthStencil = TRUE;
-	g_d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
-	g_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_ONE; // Present with vsync
-	//g_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; // Present without vsync, maximum unthrottled framerate
-
-	// Create the D3DDevice
-	if (pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &g_d3dpp, &g_pd3dDevice) < 0)
-	{
-		pD3D->Release();
-		UnregisterClass(_T("ImGui Example"), wc.hInstance);
-		return;
-	}
-
-	// Setup Dear ImGui context
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
-
-	// Setup Platform/Renderer bindings
-	ImGui_ImplWin32_Init(hwnd);
-	ImGui_ImplDX9_Init(g_pd3dDevice);
-
-	// Setup Style
-	ImGui::StyleColorsDark();
-}
-
-void Application::run()
-{
-	initialize();
-	pickMethodGui();
-}
-
-
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
@@ -188,3 +174,4 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
+#endif

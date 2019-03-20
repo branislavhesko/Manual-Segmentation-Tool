@@ -4,7 +4,7 @@
 #include "pch.h"
 #include "image_processing.h"
 #include "segment_by_polygon_fit.h"
-#include "Application.h"
+#include "application_glfw_opengl3.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -23,9 +23,9 @@ std::vector<std::string> getImagesInFolder(std::string &path) {
 
 int main()
 {
-	Application app;
-	app.initialize();
-	app.run();
+
+    ApplicationGlfwOpengl3 app;
+    app.run();
 	ImageProcessing image;
 	image.setImage(cv::imread("./1.jpg"));
 	SegmentByPolygonFit s;

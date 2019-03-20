@@ -3,9 +3,9 @@
 #include <vector>
 #include "image_processing.h"
 #include "mouse_control_functions.h"
-#include "Segment.h"
+#include "segmentation_method.h"
 
-class SegmentByPolygonFit : public Segment
+class SegmentByPolygonFit : public SegmentationMethod
 {
 public:
 	SegmentByPolygonFit();

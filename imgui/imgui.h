@@ -955,8 +955,8 @@ enum ImGuiConfigFlags_
     ImGuiConfigFlags_NoMouseCursorChange    = 1 << 5,   // Instruct back-end to not alter mouse cursor shape and visibility. Use if the back-end cursor changes are interfering with yours and you don't want to use SetMouseCursor() to change mouse cursor. You may want to honor requests from imgui by reading GetMouseCursor() yourself instead.
 
     // User storage (to allow your back-end/engine to communicate to code that may be shared between multiple projects. Those flags are not used by core ImGui)
-    ImGuiConfigFlags_IsSRGB                 = 1 << 20,  // Application is SRGB-aware.
-    ImGuiConfigFlags_IsTouchScreen          = 1 << 21   // Application is using a touch screen instead of a mouse.
+    ImGuiConfigFlags_IsSRGB                 = 1 << 20,  // application_win32 is SRGB-aware.
+    ImGuiConfigFlags_IsTouchScreen          = 1 << 21   // application_win32 is using a touch screen instead of a mouse.
 };
 
 // Back-end capabilities flags stored in io.BackendFlags. Set by imgui_impl_xxx or custom back-end.
@@ -1286,7 +1286,7 @@ struct ImGuiIO
     bool        WantSaveIniSettings;        // When manual .ini load/save is active (io.IniFilename == NULL), this will be set to notify your application that you can call SaveIniSettingsToMemory() and save yourself. IMPORTANT: You need to clear io.WantSaveIniSettings yourself.
     bool        NavActive;                  // Directional navigation is currently allowed (will handle ImGuiKey_NavXXX events) = a window is focused and it doesn't use the ImGuiWindowFlags_NoNavInputs flag.
     bool        NavVisible;                 // Directional navigation is visible and allowed (will handle ImGuiKey_NavXXX events).
-    float       Framerate;                  // Application framerate estimation, in frame per second. Solely for convenience. Rolling average estimation based on IO.DeltaTime over 120 frames
+    float       Framerate;                  // application_win32 framerate estimation, in frame per second. Solely for convenience. Rolling average estimation based on IO.DeltaTime over 120 frames
     int         MetricsRenderVertices;      // Vertices output during last call to Render()
     int         MetricsRenderIndices;       // Indices output during last call to Render() = number of triangles * 3
     int         MetricsRenderWindows;       // Number of visible windows

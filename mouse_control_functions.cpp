@@ -5,9 +5,9 @@
 
 void polygonSegmentationMouseControl(int event, int x, int y, int flag, void * points)
 {
-	std::vector<cv::Point> *polyPoints = static_cast<std::vector<cv::Point> *> (points);
+	auto *polyPoints = static_cast<std::vector<cv::Point> *> (points);
 
-	if (event == CV_EVENT_LBUTTONUP) {
+	if (event == cv::EVENT_LBUTTONUP) {
 		polyPoints->push_back(cv::Point(x, y));
 	}
 
