@@ -5,6 +5,7 @@
 #ifndef MANUAL_SEGMENTATION_TOOL_APPLICATION_GLFW_OPENGL3_H
 #define MANUAL_SEGMENTATION_TOOL_APPLICATION_GLFW_OPENGL3_H
 
+#include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl2.h"
 

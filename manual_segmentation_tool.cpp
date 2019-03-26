@@ -11,12 +11,12 @@ namespace fs = std::experimental::filesystem;
 
 
 std::vector<std::string> getImagesInFolder(std::string &path) {
-	std::vector<std::string> imageFiles;
-	for (auto &file : fs::directory_iterator(path))
-	{
-		imageFiles.push_back(file.path().string());
-	}
-	return imageFiles;
+    std::vector<std::string> imageFiles;
+    for (auto &file : fs::directory_iterator(path))
+    {
+        imageFiles.push_back(file.path().string());
+    }
+    return imageFiles;
 }
 
 int main()
@@ -24,11 +24,11 @@ int main()
 
     ApplicationGlfwOpengl3 app;
     app.run();
-	ImageProcessing image;
-	image.setImage(cv::imread("./1."));
-	SegmentByPolygonFit s;
-	s.run(image);
-    std::cout << "Hello World!\n"; 
+    ImageProcessing image;
+    image.setImage(cv::imread("./1.jpg"));
+    SegmentByPolygonFit s;
+    s.run(image);
+    std::cout << "Hello World!\n";
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

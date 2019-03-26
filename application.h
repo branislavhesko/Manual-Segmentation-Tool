@@ -10,6 +10,10 @@
 
 #include "opencv2/opencv.hpp"
 #include "imgui/imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl2.h"
+#include <GL/glew.h>    // Initialize with glewInit()
+#include <GLFW/glfw3.h>
 
 class Application {
 

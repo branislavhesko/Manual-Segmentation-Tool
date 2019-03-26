@@ -6,6 +6,9 @@
 
 void ApplicationGlfwOpengl3::initialize() {
     glfwSetErrorCallback(glfw_error_callback);
+    if (!glfwInit())
+        return;
+
     const char* glsl_version = "#version 130";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
