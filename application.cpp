@@ -15,8 +15,6 @@ Application::Application() {
 }
 
 bool Application::createWindow() {
-    static int counter = 0;
-
     ImGui::Begin("Main window");                          // Create a window called "Hello, world!" and append into it.
 
     ImGui::Text("Please pick your manual segmentation method");               // Display some text (you can use a format strings too)

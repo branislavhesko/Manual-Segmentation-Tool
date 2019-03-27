@@ -2,8 +2,8 @@
 // Created by brani on 20.3.19.
 //
 
-#ifndef MANUAL_SEGMENTATION_TOOL_APPLICATION_GLFW_OPENGL3_H
-#define MANUAL_SEGMENTATION_TOOL_APPLICATION_GLFW_OPENGL3_H
+#ifndef MANUAL_SEGMENTATION_TOOL_APPLICATION_GLFW_OPENGL2_H
+#define MANUAL_SEGMENTATION_TOOL_APPLICATION_GLFW_OPENGL2_H
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -21,8 +21,12 @@ static void glfw_error_callback(int error, const char* description)
 }
 
 
-class ApplicationGlfwOpengl3 : public Application {
+class ApplicationGlfwOpengl2 : public Application {
     void initialize() override;
+
+protected:
+    GLFWwindow* window;
+    void pickMethodGui() override;
 };
 
 
