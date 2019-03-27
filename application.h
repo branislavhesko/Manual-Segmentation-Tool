@@ -27,7 +27,7 @@ private:
     };
 
 protected:
-    const cv::Size WINDOWSIZE = cv::Size(200, 800);
+    const cv::Size WINDOWSIZE = cv::Size(400, 800);
     std::vector<bool> methodPicker;
     virtual void pickMethodGui(){};
     bool createWindow();

@@ -11,10 +11,10 @@ bool SaveFinalMask::save_mask_into_file(const std::string &original_image_path, 
     return cv::imwrite(composeOutputPath(destination_path, image_name), mask);;
 }
 
-std::string SaveFinalMask::getBasename(std::string path) {
+std::string SaveFinalMask::getBasename(const std::string path) {
     return fs::path(path).filename();
 }
 
-fs::path SaveFinalMask::composeOutputPath(std::string folder_structure, std::string image_name) {
+fs::path SaveFinalMask::composeOutputPath(const std::string folder_structure, const std::string image_name) {
     return fs::path(folder_structure) / image_name;
 }

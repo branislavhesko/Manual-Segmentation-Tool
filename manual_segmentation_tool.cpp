@@ -33,7 +33,7 @@ int main()
     s.run(image);
 
 
-    std::cout << m.save_mask_into_file(path, "./result", image.getSegmentationMask()) << "\n";
+    std::cout << m.save_mask_into_file(path, "./result/mask", image.getSegmentationMask()) << "\n";
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

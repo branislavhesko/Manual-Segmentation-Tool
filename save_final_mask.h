@@ -19,8 +19,8 @@ public:
     SaveFinalMask() = default;
 
 private:
-    std::string getBasename(std::string path);
-    fs::path composeOutputPath(std::string folder_structure, std::string image_name);
+    std::string getBasename(const std::string path);
+    fs::path composeOutputPath(const std::string folder_structure, const std::string image_name);
 };
 
 
