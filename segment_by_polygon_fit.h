@@ -15,6 +15,7 @@ public:
 private:
 	std::vector<cv::Point> segmented_points;
 	void deleteLastPoint();
+	void pointQuadrantCorrecion();
 	ImageProcessing im;
 	void drawPolygon();
 };

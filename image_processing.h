@@ -26,6 +26,7 @@ public:
 	}
 	void composeImage();
 	ImageQuadrant calculateQuadrant(unsigned int x, unsigned int y);
+	ImageQuadrant calculateQuadrant(cv::Point &point);
 	void addPolygonToSegmentationMask(std::vector<cv::Point> &points);
 
 private:
@@ -33,7 +34,11 @@ private:
 	cv::Mat originalFrame;
 	cv::Mat segmentationMask;
 	cv::Mat resizedFrame;
-	cv::Size SEGMENTATIONWINDOWSIZE = cv::Size(1600, 900);
+	cv::Size SEGMENTATION_WINDOW_SIZE = cv::Size(1600, 900);
+public:
+	const cv::Size &getSEGMENTATION_WINDOW_SIZE() const;
+
+private:
 	cv::Mat mergeImageAndMask();
 	cv::Mat maskImageByMask();
 };

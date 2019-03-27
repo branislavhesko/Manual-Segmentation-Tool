@@ -14,19 +14,19 @@ void ImageProcessing::setImage(const cv::Mat & originalFrame)
 {
 	this->originalFrame = originalFrame;
 	cv::resize(originalFrame, this->resizedFrame, 
-		cv::Size(SEGMENTATIONWINDOWSIZE.width / 2, SEGMENTATIONWINDOWSIZE.height / 2));
+		cv::Size(SEGMENTATION_WINDOW_SIZE.width / 2, SEGMENTATION_WINDOW_SIZE.height / 2));
 	// cv::threshold(resizedFrame, segmentationMask, 100, 255, cv::THRESH_BINARY);
-	segmentationMask = cv::Mat(cv::Size(SEGMENTATIONWINDOWSIZE.width / 2,
-			SEGMENTATIONWINDOWSIZE.height / 2), CV_8UC3, cv::Scalar(0.));
-	composedFrame = cv::Mat(SEGMENTATIONWINDOWSIZE, CV_8UC3);
+	segmentationMask = cv::Mat(cv::Size(SEGMENTATION_WINDOW_SIZE.width / 2,
+			SEGMENTATION_WINDOW_SIZE.height / 2), CV_8UC3, cv::Scalar(0.));
+	composedFrame = cv::Mat(SEGMENTATION_WINDOW_SIZE, CV_8UC3);
 	composeImage();
 
 }
 
 ImageQuadrant ImageProcessing::calculateQuadrant(unsigned int x, unsigned int y)
 {
-	if (x < SEGMENTATIONWINDOWSIZE.width & x > SEGMENTATIONWINDOWSIZE.width / 2) {
-		if (y < SEGMENTATIONWINDOWSIZE.height & y > SEGMENTATIONWINDOWSIZE.height / 2) {
+	if (x < SEGMENTATION_WINDOW_SIZE.width & x > SEGMENTATION_WINDOW_SIZE.width / 2) {
+		if (y < SEGMENTATION_WINDOW_SIZE.height & y > SEGMENTATION_WINDOW_SIZE.height / 2) {
 			return ImageQuadrant::Forth;
 		}
 		else {
@@ -34,7 +34,7 @@ ImageQuadrant ImageProcessing::calculateQuadrant(unsigned int x, unsigned int y)
 		}
 	}
 	else {
-		if (y < SEGMENTATIONWINDOWSIZE.height & y > SEGMENTATIONWINDOWSIZE.height / 2) {
+		if (y < SEGMENTATION_WINDOW_SIZE.height & y > SEGMENTATION_WINDOW_SIZE.height / 2) {
 			return ImageQuadrant::Third;
 		}
 		else {
@@ -87,4 +87,12 @@ cv::Mat ImageProcessing::maskImageByMask()
 	cv::Mat image;
 	cv::merge(channels, image);
 	return image;
+}
+
+const cv::Size &ImageProcessing::getSEGMENTATION_WINDOW_SIZE() const {
+	return SEGMENTATION_WINDOW_SIZE;
+}
+
+ImageQuadrant ImageProcessing::calculateQuadrant(cv::Point &point) {
+	return calculateQuadrant((unsigned int) point.x, (unsigned int) point.y);
 }
