@@ -46,6 +46,9 @@ ImageQuadrant ImageProcessing::calculateQuadrant(unsigned int x, unsigned int y)
 
 void ImageProcessing::addPolygonToSegmentationMask(std::vector<cv::Point>& points)
 {
+	if (points.size() <= 1) {
+		return;
+	}
 	cv::fillConvexPoly(segmentationMask, points, cv::Scalar(255, 255, 255));
 }
 

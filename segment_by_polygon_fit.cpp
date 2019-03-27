@@ -13,18 +13,24 @@ SegmentByPolygonFit::~SegmentByPolygonFit()
 void SegmentByPolygonFit::run(ImageProcessing & im)
 {
 	this->im = im;
-	cv::namedWindow("SKUSKA");
+	std::string windowName = "SEGMENTATION METHOD";
+	cv::namedWindow(windowName);
 	while (true) {
 		drawPolygon();
-		cv::imshow("SKUSKA", im.getComposedFrame());
-		if (cv::waitKey(27) == 27) {
+		cv::imshow(windowName, im.getComposedFrame());
+		if (cv::waitKey(30) == 27) {
 			break;
 		}
-		cv::setMouseCallback("SKUSKA", polygonSegmentationMouseControl, &segmented_points);
+		if (cv::waitKey(30) == 97) {
+            im.addPolygonToSegmentationMask(segmented_points);
+		    segmented_points.clear();
+		}
+        im.composeImage();
+        cv::setMouseCallback(windowName, polygonSegmentationMouseControl, &segmented_points);
 	}
 	im.addPolygonToSegmentationMask(segmented_points);
 	im.composeImage();
-	cv::imshow("SKUSKA", im.getComposedFrame());
+	cv::imshow(windowName, im.getComposedFrame());
 	cv::waitKey(10000);
 }
 
