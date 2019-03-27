@@ -15,7 +15,9 @@ void ImageProcessing::setImage(const cv::Mat & originalFrame)
 	this->originalFrame = originalFrame;
 	cv::resize(originalFrame, this->resizedFrame, 
 		cv::Size(SEGMENTATIONWINDOWSIZE.width / 2, SEGMENTATIONWINDOWSIZE.height / 2));
-	cv::threshold(resizedFrame, segmentationMask, 100, 255, cv::THRESH_BINARY);
+	// cv::threshold(resizedFrame, segmentationMask, 100, 255, cv::THRESH_BINARY);
+	segmentationMask = cv::Mat(cv::Size(SEGMENTATIONWINDOWSIZE.width / 2,
+			SEGMENTATIONWINDOWSIZE.height / 2), CV_8UC3, cv::Scalar(0.));
 	composedFrame = cv::Mat(SEGMENTATIONWINDOWSIZE, CV_8UC3);
 	composeImage();
 
