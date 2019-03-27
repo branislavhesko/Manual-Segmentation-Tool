@@ -3,6 +3,8 @@
 #include "image_processing.h"
 #include "segment_by_polygon_fit.h"
 #include "application_glfw_opengl2.h"
+#include "save_final_mask.h"
+
 #include <vector>
 #include <string>
 #include <iostream>
@@ -21,14 +23,17 @@ std::vector<std::string> getImagesInFolder(std::string &path) {
 
 int main()
 {
-
+    std::string path("./1.png");
+    SaveFinalMask m;
     ApplicationGlfwOpengl2 app;
     app.run();
     ImageProcessing image;
-    image.setImage(cv::imread("./1.jpg"));
+    image.setImage(cv::imread(path));
     SegmentByPolygonFit s;
     s.run(image);
-    std::cout << "Hello World!\n";
+
+
+    std::cout << m.save_mask_into_file(path, "./result", image.getSegmentationMask()) << "\n";
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

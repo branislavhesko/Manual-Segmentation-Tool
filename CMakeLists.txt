@@ -8,7 +8,7 @@ add_executable(manual_segmentation_tool manual_segmentation_tool.cpp application
         application_glfw_opengl2.h segment_by_polygon_fit.cpp segment_by_polygon_fit.h segmentation_method.cpp
         segmentation_method.h mouse_control_functions.cpp mouse_control_functions.h imgui/imgui.h imgui/imgui_widgets.cpp
         imgui/imgui.cpp imgui/imgui_internal.h imgui/imgui_draw.cpp imgui/imgui_impl_opengl2.h imgui/imgui_impl_opengl2.cpp
-        imgui/imgui_impl_glfw.h imgui/imgui_impl_glfw.cpp)
+        imgui/imgui_impl_glfw.h imgui/imgui_impl_glfw.cpp save_final_mask.cpp save_final_mask.h)
 include_directories(imgui)
 
 find_package(glfw3 3.2 REQUIRED)
