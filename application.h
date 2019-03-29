@@ -27,10 +27,20 @@ private:
     };
 
 protected:
-    const cv::Size WINDOWSIZE = cv::Size(400, 800);
+    const cv::Size WINDOWSIZE = cv::Size(800, 600);
     std::vector<bool> methodPicker;
     virtual void pickMethodGui(){};
     bool createWindow();
+
+private:
+    std::string help = "Manual segmentation tool. Currenctly implemented methods: \n"
+                       "\n"
+                       "- by pressing the left mouse button you might depict a polygon around the object. \n"
+                       "- by pressing the right mouse button you are able to continously depict object border \n"
+                       "\n"
+                       "For more informations, please read README.md \n"
+                       "branislav.hesko@gmail.com \n"
+                       "2019";
 };
 
 

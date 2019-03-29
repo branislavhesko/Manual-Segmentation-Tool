@@ -28,6 +28,9 @@ public:
 	ImageQuadrant calculateQuadrant(unsigned int x, unsigned int y);
 	ImageQuadrant calculateQuadrant(cv::Point &point);
 	void addPolygonToSegmentationMask(std::vector<cv::Point> &points);
+	cv::Size get_original_image_size() {
+	    return cv::Size(originalFrame.cols, originalFrame.rows);
+	}
 
 private:
 	cv::Mat composedFrame;

@@ -24,12 +24,9 @@ bool Application::createWindow() {
     if (ImGui::Button("Method 1"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
         methodPicker[0] = true;
     ImGui::SameLine();
-    ImGui::Text("This method depicts object by a polygon");
+    ImGui::Text("This method depicts object by a polygon by clicking on \n"
+                "edge points or continuously depicting object by mouse movement.");
 
-    if (ImGui::Button("Method 2"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-        methodPicker[1] = true;
-    ImGui::SameLine();
-    ImGui::Text("This method depicts object by mouse movement");
 
     if (ImGui::Button("Method 3"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
         methodPicker[2] = true;
@@ -39,9 +36,14 @@ bool Application::createWindow() {
     if (ImGui::Button("DONE")) {
         return false;
     }
+    ImGui::End();
+
+    ImGui::Begin("HELP");                          // Create a window called "Hello, world!" and append into it.
+
+    ImGui::Text(help.c_str());
+    ImGui::End();
 
     // ImGui::Text("application_win32 average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-    ImGui::End();
     return true;
 }
 
