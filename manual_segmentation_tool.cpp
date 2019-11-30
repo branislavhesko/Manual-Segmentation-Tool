@@ -2,7 +2,11 @@
 //
 #include "image_processing.h"
 #include "segment_by_polygon_fit.h"
+#ifdef _MSC_VER
+#include "application_win32.h"
+#else
 #include "application_glfw_opengl2.h"
+#endif
 #include "save_final_mask.h"
 
 #include <vector>
@@ -12,7 +16,7 @@
 namespace fs = std::experimental::filesystem;
 
 
-std::vector<std::string> getImagesInFolder(std::string &path) {
+std::vector<std::string> getImagesInFolder(std::string path) {
     std::vector<std::string> imageFiles;
     for (auto &file : fs::directory_iterator(path))
     {
@@ -23,17 +27,18 @@ std::vector<std::string> getImagesInFolder(std::string &path) {
 
 int main()
 {
-    std::string path("./1.png");
-    SaveFinalMask m;
+    auto image_files = getImagesInFolder("./images");
     ApplicationGlfwOpengl2 app;
     app.run();
     ImageProcessing image;
-    image.setImage(cv::imread(path));
     SegmentByPolygonFit s;
-    s.run(image);
 
-
-    std::cout << m.save_mask_into_file(path, "./result/mask", image.getSegmentationMask()) << "\n";
+    for (auto& image_file: image_files) {
+        std::cout << "Processing file: " << image_file << std::endl;
+        image.setImage(cv::imread(image_file));
+        s.run(image);
+        SaveFinalMask::save_mask_into_file(image_file, "./result/mask", image.getSegmentationMask());
+    }
     return 1;
 }
 

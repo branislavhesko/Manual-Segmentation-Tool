@@ -14,13 +14,13 @@ namespace fs = std::experimental::filesystem;
 
 class SaveFinalMask {
 public:
-    bool save_mask_into_file(const std::string &original_image_path,
+    static bool save_mask_into_file(const std::string &original_image_path,
             const std::string &destination_path, cv::Mat &mask);
     SaveFinalMask() = default;
 
 private:
-    std::string getBasename(const std::string &path);
-    fs::path composeOutputPath(const std::string &folder_structure, const std::string &image_name);
+    static std::string getBasename(const std::string &path);
+    static fs::path composeOutputPath(const std::string &folder_structure, const std::string &image_name);
 };
 
 

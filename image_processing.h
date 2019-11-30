@@ -5,11 +5,11 @@
 
 enum ImageQuadrant
 {
-	First,
-	Second,
-	Third,
-	Forth,
-	None
+	FIRST,
+	SECOND,
+	THIRD,
+	FORTH,
+	NONE
 };
 
 class ImageProcessing
@@ -17,7 +17,7 @@ class ImageProcessing
 public:
 	ImageProcessing();
 	~ImageProcessing();
-	void setImage(const cv::Mat &originalFrame);
+	void setImage(const cv::Mat &frame);
 	cv::Mat &getComposedFrame() {
 		return composedFrame;
 	}

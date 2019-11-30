@@ -1,20 +1,16 @@
 #include "image_processing.h"
 
 
-ImageProcessing::ImageProcessing()
-{
-}
+ImageProcessing::ImageProcessing()=default;
 
 
-ImageProcessing::~ImageProcessing()
-{
-}
+ImageProcessing::~ImageProcessing()=default;
 
-void ImageProcessing::setImage(const cv::Mat & originalFrame)
+void ImageProcessing::setImage(const cv::Mat & frame)
 {
-	this->originalFrame = originalFrame;
-	cv::resize(originalFrame, this->resizedFrame, 
-		cv::Size(SEGMENTATION_WINDOW_SIZE.width / 2, SEGMENTATION_WINDOW_SIZE.height / 2));
+	this->originalFrame = frame;
+	cv::resize(frame, this->resizedFrame,
+               cv::Size(SEGMENTATION_WINDOW_SIZE.width / 2, SEGMENTATION_WINDOW_SIZE.height / 2));
 	// cv::threshold(resizedFrame, segmentationMask, 100, 255, cv::THRESH_BINARY);
 	segmentationMask = cv::Mat(cv::Size(SEGMENTATION_WINDOW_SIZE.width / 2,
 			SEGMENTATION_WINDOW_SIZE.height / 2), CV_8UC3, cv::Scalar(0.));
@@ -27,21 +23,21 @@ ImageQuadrant ImageProcessing::calculateQuadrant(unsigned int x, unsigned int y)
 {
 	if (x < SEGMENTATION_WINDOW_SIZE.width & x > SEGMENTATION_WINDOW_SIZE.width / 2) {
 		if (y < SEGMENTATION_WINDOW_SIZE.height & y > SEGMENTATION_WINDOW_SIZE.height / 2) {
-			return ImageQuadrant::Forth;
+			return ImageQuadrant::FORTH;
 		}
 		else {
-			return ImageQuadrant::First;
+			return ImageQuadrant::FIRST;
 		}
 	}
 	else {
 		if (y < SEGMENTATION_WINDOW_SIZE.height & y > SEGMENTATION_WINDOW_SIZE.height / 2) {
-			return ImageQuadrant::Third;
+			return ImageQuadrant::THIRD;
 		}
 		else {
-			return ImageQuadrant::Second;
+			return ImageQuadrant::SECOND;
 		}
 	}
-	return ImageQuadrant::None;
+	return ImageQuadrant::NONE;
 }
 
 void ImageProcessing::addPolygonToSegmentationMask(std::vector<cv::Point>& points)

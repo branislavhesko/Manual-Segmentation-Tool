@@ -28,7 +28,9 @@ void SegmentByPolygonFit::run(ImageProcessing & im)
 			segmented_points.clear();
 		}
 		if (key == 101) {
-			segmented_points.pop_back();
+		    if (!segmented_points.empty()) {
+                segmented_points.pop_back();
+            }
 		}
 		if (key == 100) {
 			if (segmented_points.size() > 5) {
@@ -70,11 +72,11 @@ void SegmentByPolygonFit::drawPolygon()
 void SegmentByPolygonFit::pointQuadrantCorrecion() {
 	for (auto &point : segmented_points) {
 		ImageQuadrant quadrant = im.calculateQuadrant(point);
-		if (quadrant == ImageQuadrant::First) {
+		if (quadrant == ImageQuadrant::FIRST) {
 			point += cv::Point(-im.getSEGMENTATION_WINDOW_SIZE().width / 2, 0);
-		} else if (quadrant == ImageQuadrant::Third) {
+		} else if (quadrant == ImageQuadrant::THIRD) {
 			point += cv::Point(0, -im.getSEGMENTATION_WINDOW_SIZE().height / 2);
-		} else if (quadrant == ImageQuadrant::Forth) {
+		} else if (quadrant == ImageQuadrant::FORTH) {
 			point += cv::Point(-im.getSEGMENTATION_WINDOW_SIZE().width / 2, -im.getSEGMENTATION_WINDOW_SIZE().height / 2);
 		}
 	}
