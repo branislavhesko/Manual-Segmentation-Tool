@@ -1,11 +1,6 @@
 #include "image_processing.h"
 
 
-ImageProcessing::ImageProcessing()=default;
-
-
-ImageProcessing::~ImageProcessing()=default;
-
 void ImageProcessing::setImage(const cv::Mat & frame)
 {
 	this->originalFrame = frame;

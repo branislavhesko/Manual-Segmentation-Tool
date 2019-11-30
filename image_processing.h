@@ -12,11 +12,12 @@ enum ImageQuadrant
 	NONE
 };
 
+
 class ImageProcessing
 {
 public:
-	ImageProcessing();
-	~ImageProcessing();
+	ImageProcessing()= default;
+	~ImageProcessing()= default;
 	void setImage(const cv::Mat &frame);
 	cv::Mat &getComposedFrame() {
 		return composedFrame;
@@ -31,6 +32,10 @@ public:
 	cv::Size get_original_image_size() {
 	    return cv::Size(originalFrame.cols, originalFrame.rows);
 	}
+
+	std::vector<std::vector<unsigned>> COLORS = {{255, 255, 255}, {0, 255, 255},
+                                                  {0, 0, 255}, {255, 0, 0}, {0, 255, 0}, {255, 255, 0}, {255, 0, 255}};
+
 
 private:
 	cv::Mat composedFrame;
