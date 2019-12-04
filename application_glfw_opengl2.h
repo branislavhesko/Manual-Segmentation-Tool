@@ -27,6 +27,7 @@ class ApplicationGlfwOpengl2 : public Application {
 protected:
     GLFWwindow* window;
     void pickMethodGui() override;
+    void openWindow();
 };
 
 

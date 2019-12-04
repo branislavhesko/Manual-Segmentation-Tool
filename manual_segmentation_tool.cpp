@@ -12,33 +12,12 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <experimental/filesystem>
-namespace fs = std::experimental::filesystem;
 
-
-std::vector<std::string> getImagesInFolder(std::string path) {
-    std::vector<std::string> imageFiles;
-    for (auto &file : fs::directory_iterator(path))
-    {
-        imageFiles.push_back(file.path().string());
-    }
-    return imageFiles;
-}
 
 int main()
 {
-    auto image_files = getImagesInFolder("./images");
     ApplicationGlfwOpengl2 app;
-    app.run();
-    ImageProcessing image;
-    SegmentByPolygonFit s;
-
-    for (auto& image_file: image_files) {
-        std::cout << "Processing file: " << image_file << std::endl;
-        image.setImage(cv::imread(image_file));
-        s.run(image);
-        SaveFinalMask::save_mask_into_file(image_file, "./result/mask", image.getSegmentationMask());
-    }
+    app.run("./images");
     return 1;
 }
 

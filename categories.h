@@ -6,12 +6,18 @@
 #define MANUAL_SEGMENTATION_TOOL_CATEGORIES_H
 
 #include <fstream>
+#include <memory>
 #include <vector>
 #include <string>
 
 
 class Category{
+public:
     void load(const std::string& file_name);
+
+    const std::vector<std::string> &getCategories() const;
+
+private:
     std::vector<std::string> categories;
 };
 

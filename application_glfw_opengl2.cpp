@@ -12,16 +12,10 @@ void ApplicationGlfwOpengl2::initialize() {
     const char* glsl_version = "#version 130";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-
-    window = glfwCreateWindow(WINDOWSIZE.width, WINDOWSIZE.height,
-            "PickerMethodGui", NULL, NULL);
-
-
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1); // Enable vsync
 }
 
 void ApplicationGlfwOpengl2::pickMethodGui() {
+    openWindow();
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -68,4 +62,14 @@ void ApplicationGlfwOpengl2::pickMethodGui() {
     glfwDestroyWindow(window);
     glfwTerminate();
 
+}
+
+void ApplicationGlfwOpengl2::openWindow() {
+    window = glfwCreateWindow(WINDOWSIZE.width, WINDOWSIZE.height,
+                              "PickerMethodGui", NULL, NULL);
+
+
+    glfwMakeContextCurrent(window);
+    glfwSwapInterval(1); // Enable vsync
+    glfwSetWindowPos(window, 0, 0);
 }

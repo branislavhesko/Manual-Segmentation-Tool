@@ -33,8 +33,9 @@ public:
 	    return cv::Size(originalFrame.cols, originalFrame.rows);
 	}
 
-	std::vector<std::vector<unsigned>> COLORS = {{255, 255, 255}, {0, 255, 255},
-                                                  {0, 0, 255}, {255, 0, 0}, {0, 255, 0}, {255, 255, 0}, {255, 0, 255}};
+	std::vector<cv::Scalar> COLORS = {{0, 0, 0}, {0, 255, 255}, {0, 0, 255},
+                                   {255, 0, 0}, {0, 255, 0}, {255, 255, 0},
+                                   {255, 0, 255}, {255, 255, 255}};
 
 
 private:
@@ -43,8 +44,12 @@ private:
 	cv::Mat segmentationMask;
 	cv::Mat resizedFrame;
 	cv::Size SEGMENTATION_WINDOW_SIZE = cv::Size(1600, 900);
+    unsigned actual_category=1;
+
 public:
 	const cv::Size &getSEGMENTATION_WINDOW_SIZE() const;
+
+    void setActualCategory(unsigned int actualCategory);
 
 private:
 	cv::Mat mergeImageAndMask();

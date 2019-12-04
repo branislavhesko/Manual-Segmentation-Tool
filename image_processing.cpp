@@ -40,7 +40,7 @@ void ImageProcessing::addPolygonToSegmentationMask(std::vector<cv::Point>& point
 	if (points.size() <= 1) {
 		return;
 	}
-	cv::fillConvexPoly(segmentationMask, points, cv::Scalar(255, 255, 255));
+	cv::fillConvexPoly(segmentationMask, points, COLORS[actual_category]);
 }
 
 void ImageProcessing::composeImage()
@@ -86,4 +86,8 @@ const cv::Size &ImageProcessing::getSEGMENTATION_WINDOW_SIZE() const {
 
 ImageQuadrant ImageProcessing::calculateQuadrant(cv::Point &point) {
 	return calculateQuadrant((unsigned int) point.x, (unsigned int) point.y);
+}
+
+void ImageProcessing::setActualCategory(unsigned int actualCategory) {
+    actual_category = actualCategory;
 }
