@@ -10,40 +10,39 @@ SegmentByPolygonFit::~SegmentByPolygonFit()
 {
 }
 
-void SegmentByPolygonFit::run(ImageProcessing & im)
-{
-	this->im = im;
-	std::string windowName = "SEGMENTATION METHOD";
-	cv::namedWindow(windowName);
-	while (true) {
-		pointQuadrantCorrecion();
-		drawPolygon();
-		cv::imshow(windowName, im.getComposedFrame());
-		int key = cv::waitKey(10);
-		if (key == 27) {
-			break;
-		}
-		if (key == 97) {
-			im.addPolygonToSegmentationMask(segmented_points);
-			segmented_points.clear();
-		}
-		if (key == 101) {
-		    if (!segmented_points.empty()) {
+void SegmentByPolygonFit::run(ImageProcessing & im_proc) {
+    this->im = im_proc;
+    std::string windowName = "SEGMENTATION METHOD";
+    cv::namedWindow(windowName);
+    while (true) {
+        pointQuadrantCorrecion();
+        drawPolygon();
+        cv::imshow(windowName, im.getComposedFrame());
+        int key = cv::waitKey(10);
+        if (key == 27) {
+            break;
+        }
+        if (key == 97) {
+            im.addPolygonToSegmentationMask(segmented_points);
+            segmented_points.clear();
+        }
+        if (key == 101) {
+            if (!segmented_points.empty()) {
                 segmented_points.pop_back();
             }
-		}
-		if (key == 100) {
-			if (segmented_points.size() > 5) {
-				segmented_points.erase(segmented_points.end() - 5, segmented_points.end());
-			}
-		}
+        }
+        if (key == 100) {
+            if (segmented_points.size() > 5) {
+                segmented_points.erase(segmented_points.end() - 5, segmented_points.end());
+            }
+        }
         im.composeImage();
         cv::setMouseCallback(windowName, polygonSegmentationMouseControl, &segmented_points);
-	}
-	im.addPolygonToSegmentationMask(segmented_points);
-	im.composeImage();
-	cv::imshow(windowName, im.getComposedFrame());
-	cv::waitKey(10000);
+    }
+    im.addPolygonToSegmentationMask(segmented_points);
+    im.composeImage();
+    cv::destroyWindow(windowName);
+    setIsRunning(false);
 }
 
 void SegmentByPolygonFit::deleteLastPoint()

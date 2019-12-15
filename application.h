@@ -35,7 +35,6 @@ private:
     virtual void initialize() {
         throw std::logic_error("Not implemented, please override!");
     };
-    SegmentByPolygonFit seg;
     ImageProcessing img_proc;
     static std::vector<std::string> getImagesInFolder(const std::string &path);
     std::vector<bool> a_sel;
@@ -46,6 +45,7 @@ protected:
     std::vector<bool> methodPicker;
     virtual void pickMethodGui(){};
     bool createWindow();
+    SegmentByPolygonFit seg;
 
 private:
     std::string help = "Manual segmentation tool. Currenctly implemented methods: \n"
