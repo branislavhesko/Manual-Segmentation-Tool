@@ -2,6 +2,8 @@
 // Created by brani on 20.3.19.
 //
 
+#ifndef _MSC_VER
+
 #include "application_glfw_opengl2.h"
 
 void ApplicationGlfwOpengl2::initialize() {
@@ -73,3 +75,4 @@ void ApplicationGlfwOpengl2::openWindow() {
     glfwSwapInterval(1); // Enable vsync
     glfwSetWindowPos(window, 0, 0);
 }
+#endif

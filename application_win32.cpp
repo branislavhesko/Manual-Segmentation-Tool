@@ -1,11 +1,12 @@
 
+#ifdef _MSC_VER
 
 #include "application_win32.h"
 
-#ifdef _MSC_VER
 
 ApplicationWin32::ApplicationWin32() : Application()
 {
+    std::cout << "New object created!" << std::endl;
 }
 
 ApplicationWin32::~ApplicationWin32() = default;
@@ -16,11 +17,13 @@ void ApplicationWin32::initialize()
 	// Create application window
 	wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("ImGui Example"), NULL };
 	RegisterClassEx(&wc);
-	hwnd = CreateWindow(_T("ImGui Example"), _T("Dear ImGui DirectX9 Example"), WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
+	hwnd = CreateWindow(_T("ImGui Example"), _T("Dear ImGui DirectX9 Example"), WS_OVERLAPPEDWINDOW, 0, 0,
+	        WINDOWSIZE.width, WINDOWSIZE.height, NULL, NULL, wc.hInstance, NULL);
 
 	// Initialize Direct3D
 	if ((pD3D = Direct3DCreate9(D3D_SDK_VERSION)) == NULL)
 	{
+	    std::cerr << "No DirectX9 found!" << std::endl;
 		UnregisterClass(_T("ImGui Example"), wc.hInstance);
 		return;
 	}
@@ -57,16 +60,15 @@ void ApplicationWin32::initialize()
 
 void ApplicationWin32::pickMethodGui()
 {
-
+    initialize();
 	bool show_picker_gui = true;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 	// Main loop
 	MSG msg;
-	ZeroMemory(&msg, sizeof(msg));
+    ZeroMemory(&msg, sizeof(msg));
 	ShowWindow(hwnd, SW_SHOWDEFAULT);
-	UpdateWindow(hwnd);
-
+    UpdateWindow(hwnd);
 	while (msg.message != WM_QUIT) {
 		if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
 		{
@@ -78,7 +80,6 @@ void ApplicationWin32::pickMethodGui()
 		ImGui_ImplDX9_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
-
 
         if (!Application::createWindow()) {
             break;

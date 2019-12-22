@@ -14,6 +14,7 @@ void SegmentByPolygonFit::run(ImageProcessing & im_proc) {
     this->im = im_proc;
     std::string windowName = "SEGMENTATION METHOD";
     cv::namedWindow(windowName);
+    cv::moveWindow(windowName, 320, 0);
     while (true) {
         pointQuadrantCorrecion();
         drawPolygon();

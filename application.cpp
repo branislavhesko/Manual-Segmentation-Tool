@@ -7,12 +7,12 @@
 
 void Application::run(const std::string &path) {
     auto image_files = getImagesInFolder(path);
-
     for (auto& image_file: image_files) {
         initialize();
         std::cout << "Processing file: " << image_file << std::endl;
         img_proc.setImage(cv::imread(image_file));
         seg.setIsRunning(true);
+        std::cout << "Starting threads" <<std::endl;
         std::thread th1(&SegmentByPolygonFit::run, &seg, std::ref(img_proc));
         std::thread th2(&Application::pickMethodGui, this);
         th1.join();

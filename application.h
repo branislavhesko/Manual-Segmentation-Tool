@@ -16,8 +16,8 @@ namespace fs = std::experimental::filesystem;
 #include "imgui/imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl2.h"
-#include <GL/glew.h>    // Initialize with glewInit()
-#include <GLFW/glfw3.h>
+//#include <GL/glew.h>    // Initialize with glewInit()
+//#include <GLFW/glfw3.h>
 
 #include "categories.h"
 #include "image_processing.h"
@@ -43,7 +43,9 @@ protected:
     const cv::Size WINDOWSIZE = cv::Size(320, 1080);
     Category categories;
     std::vector<bool> methodPicker;
-    virtual void pickMethodGui(){};
+    virtual void pickMethodGui(){
+        std::cout << "Starting bad thread" <<std::endl;
+    };
     bool createWindow();
     SegmentByPolygonFit seg;
 

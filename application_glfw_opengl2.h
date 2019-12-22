@@ -5,6 +5,8 @@
 #ifndef MANUAL_SEGMENTATION_TOOL_APPLICATION_GLFW_OPENGL2_H
 #define MANUAL_SEGMENTATION_TOOL_APPLICATION_GLFW_OPENGL2_H
 
+#ifndef _MSC_VER
+
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl2.h"
@@ -29,6 +31,6 @@ protected:
     void pickMethodGui() override;
     void openWindow();
 };
-
+#endif
 
 #endif //MANUAL_SEGMENTATION_TOOL_APPLICATION_GLFW_OPENGL3_H
