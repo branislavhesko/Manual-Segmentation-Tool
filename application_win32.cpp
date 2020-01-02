@@ -58,7 +58,7 @@ void ApplicationWin32::initialize()
 	ImGui::StyleColorsDark();
 }
 
-void ApplicationWin32::pickMethodGui()
+void ApplicationWin32::pickMethodGui(SegmentByPolygonFit &seg)
 {
     initialize();
 	bool show_picker_gui = true;

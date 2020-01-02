@@ -16,7 +16,7 @@ void ApplicationGlfwOpengl2::initialize() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 }
 
-void ApplicationGlfwOpengl2::pickMethodGui() {
+void ApplicationGlfwOpengl2::pickMethodGui(SegmentByPolygonFit &seg) {
     openWindow();
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();

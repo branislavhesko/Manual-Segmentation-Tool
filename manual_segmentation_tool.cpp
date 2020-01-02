@@ -16,7 +16,11 @@
 
 int main()
 {
+    #ifdef _MSC_VER
     ApplicationWin32 app;
+    #else
+    ApplicationGlfwOpengl2 app;
+    #endif
     app.run("./images");
     return 1;
 }

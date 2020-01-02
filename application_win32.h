@@ -35,7 +35,7 @@ private:
 	HWND hwnd;
 	LPDIRECT3D9 pD3D;
 	WNDCLASSEX wc;
-    void pickMethodGui() override;
+    void pickMethodGui(SegmentByPolygonFit &seg) override;
 
 };
 

@@ -43,7 +43,7 @@ protected:
     const cv::Size WINDOWSIZE = cv::Size(320, 1080);
     Category categories;
     std::vector<bool> methodPicker;
-    virtual void pickMethodGui(){
+    virtual void pickMethodGui(SegmentByPolygonFit &seg){
         std::cout << "Starting bad thread" <<std::endl;
     };
     bool createWindow();

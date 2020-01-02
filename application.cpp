@@ -16,7 +16,7 @@ void Application::run(const std::string &path) {
         seg.setIsRunning(true);
         std::cout << "Starting threads" <<std::endl;
         std::thread th1(&SegmentByPolygonFit::run, &seg);
-        std::thread th2([this] {this->pickMethodGui();});
+        std::thread th2(&Application::pickMethodGui, this, std::ref(seg));
         th1.join();
         th2.join();
         SaveFinalMask::save_mask_into_file(image_file, "./result/mask", img_proc.getSegmentationMask());
