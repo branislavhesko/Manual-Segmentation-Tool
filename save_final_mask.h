@@ -15,7 +15,7 @@ namespace fs = std::experimental::filesystem;
 class SaveFinalMask {
 public:
     static bool save_mask_into_file(const std::string &original_image_path,
-            const std::string &destination_path, cv::Mat &mask);
+            const std::string &destination_path, cv::Mat &mask, const cv::Size& frame_size);
     SaveFinalMask() = default;
 
 private:

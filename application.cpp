@@ -19,7 +19,8 @@ void Application::run(const std::string &path) {
         std::thread th2(&Application::pickMethodGui, this, std::ref(seg));
         th1.join();
         th2.join();
-        SaveFinalMask::save_mask_into_file(image_file, "./result/mask", img_proc.getSegmentationMask());
+        SaveFinalMask::save_mask_into_file(image_file, "./result/mask",
+                img_proc.getSegmentationMask(), img_proc.get_original_image_size());
     }
 }
 
