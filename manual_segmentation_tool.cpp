@@ -16,7 +16,7 @@
 
 int main()
 {
-    ApplicationWin32 app;
+    ApplicationGlfwOpengl2 app;
     app.run("./images");
     return 1;
 }
