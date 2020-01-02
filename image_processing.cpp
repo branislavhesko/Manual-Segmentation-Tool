@@ -40,7 +40,8 @@ void ImageProcessing::addPolygonToSegmentationMask(std::vector<cv::Point>& point
 	if (points.size() <= 1) {
 		return;
 	}
-	cv::fillConvexPoly(segmentation_mask_, points, COLORS[actual_category]);
+    std::cout << "Actual category " << actual_category << std::endl;
+    cv::fillConvexPoly(segmentation_mask_, points, COLORS[actual_category]);
 }
 
 void ImageProcessing::composeImage()
@@ -98,5 +99,6 @@ ImageQuadrant ImageProcessing::calculateQuadrant(cv::Point &point) {
 }
 
 void ImageProcessing::setActualCategory(unsigned int actualCategory) {
+    std::cout << "Category " << actual_category << std::endl;
     actual_category = actualCategory;
 }

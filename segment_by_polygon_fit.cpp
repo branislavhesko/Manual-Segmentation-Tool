@@ -1,17 +1,10 @@
 #include "segment_by_polygon_fit.h"
 
 
-SegmentByPolygonFit::SegmentByPolygonFit()
-{
-}
-
-
 SegmentByPolygonFit::~SegmentByPolygonFit()
-{
-}
+= default;
 
-void SegmentByPolygonFit::run(ImageProcessing & im_proc) {
-    this->im = im_proc;
+void SegmentByPolygonFit::run() {
     std::string windowName = "SEGMENTATION METHOD";
     cv::namedWindow(windowName);
     cv::moveWindow(windowName, 320, 0);

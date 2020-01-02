@@ -47,7 +47,6 @@ protected:
         std::cout << "Starting bad thread" <<std::endl;
     };
     bool createWindow();
-    SegmentByPolygonFit seg;
 
 private:
     std::string help = "Manual segmentation tool. Currenctly implemented methods: \n"

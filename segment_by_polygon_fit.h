@@ -8,15 +8,15 @@
 class SegmentByPolygonFit : public SegmentationMethod
 {
 public:
-	SegmentByPolygonFit();
-	~SegmentByPolygonFit();
-	void run(ImageProcessing & im);
+	SegmentByPolygonFit(ImageProcessing & img_proc): im(img_proc) {};
+	~SegmentByPolygonFit() override;
+	void run();
 
 private:
 	std::vector<cv::Point> segmented_points;
 	void deleteLastPoint();
 	void pointQuadrantCorrecion();
-	ImageProcessing im;
+	ImageProcessing& im;
 	void drawPolygon();
 };
 
