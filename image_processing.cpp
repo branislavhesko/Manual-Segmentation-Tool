@@ -99,6 +99,5 @@ ImageQuadrant ImageProcessing::calculateQuadrant(cv::Point &point) {
 }
 
 void ImageProcessing::setActualCategory(unsigned int actualCategory) {
-    std::cout << "Category " << actual_category << std::endl;
     actual_category = actualCategory;
 }

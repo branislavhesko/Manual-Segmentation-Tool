@@ -6,7 +6,6 @@
 
 ApplicationWin32::ApplicationWin32() : Application()
 {
-    std::cout << "New object created!" << std::endl;
 }
 
 ApplicationWin32::~ApplicationWin32() = default;
@@ -34,7 +33,6 @@ void ApplicationWin32::initialize()
 	g_d3dpp.EnableAutoDepthStencil = TRUE;
 	g_d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 	g_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_ONE; // Present with vsync
-	//g_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; // Present without vsync, maximum unthrottled framerate
 
 	// Create the D3DDevice
 	if (pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &g_d3dpp, &g_pd3dDevice) < 0)
@@ -48,7 +46,6 @@ void ApplicationWin32::initialize()
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
 
 	// Setup Platform/Renderer bindings
 	ImGui_ImplWin32_Init(hwnd);
@@ -61,7 +58,6 @@ void ApplicationWin32::initialize()
 void ApplicationWin32::pickMethodGui(SegmentByPolygonFit &seg)
 {
     initialize();
-	bool show_picker_gui = true;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 	// Main loop
@@ -69,7 +65,7 @@ void ApplicationWin32::pickMethodGui(SegmentByPolygonFit &seg)
     ZeroMemory(&msg, sizeof(msg));
 	ShowWindow(hwnd, SW_SHOWDEFAULT);
     UpdateWindow(hwnd);
-	while (msg.message != WM_QUIT) {
+	while (msg.message != WM_QUIT && seg.isRunning()) {
 		if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
 		{
 			TranslateMessage(&msg);
