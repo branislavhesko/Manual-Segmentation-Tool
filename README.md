@@ -76,7 +76,7 @@ There are few keyboard shortcuts you should know and use:
 * **A** - fill polygon and add it into segmentation mask.
 * **E** - remove a single point from the contour.
 * **D** - remove multiple points from the contour.
-* **ESC* - when focused on the segmentation window, image segmentation is saved and program continues to the next image.
+* **ESC** - when focused on the segmentation window, image segmentation is saved and program continues to the next image.
 
 ## TODO:
 - [] Add better program exiting.
